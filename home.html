@@ -1,0 +1,3551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carl's  - Digital Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 120px;
+            height: 40px;
+            object-fit: contain;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-image:hover {
+            opacity: 0.8;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 40px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo-placeholder:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+        }
+
+        .logo-placeholder span {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+            opacity: 0.7;
+        }
+
+        .logo-placeholder p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            gap: 0.25rem;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: black;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            z-index: 1001;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-menu-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: black;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: black;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu-close:hover {
+            background: #f0f0f0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-nav-links li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-nav-links li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-links a:hover {
+            color: #667eea;
+            padding-left: 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            height: auto;
+            padding: 120px 0 80px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(180deg, #f9f9f9 0%, #f3f3f3 30%, white 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -10%;
+            right: -10%;
+            height: 60vh;
+            background: linear-gradient(180deg, 
+                rgba(249, 249, 249, 0.8) 0%, 
+                rgba(243, 243, 243, 0.6) 40%, 
+                rgba(255, 255, 255, 0.3) 70%, 
+                transparent 100%);
+            border-radius: 0 0 60% 60%;
+            transform: scaleX(1.2);
+            z-index: 1;
+            box-shadow: 
+                inset 0 -20px 40px rgba(255, 255, 255, 0.5),
+                0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -5%;
+            right: -5%;
+            height: 50vh;
+            background: linear-gradient(180deg, 
+                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(249, 249, 249, 0.2) 50%, 
+                transparent 100%);
+            border-radius: 0 0 70% 70%;
+            z-index: 2;
+            filter: blur(1px);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .greeting-box {
+            display: inline-block;
+            width: 220px;
+            height: 24px;
+            background: linear-gradient(90deg, #ff6b35, #8b5cf6);
+            border-radius: 12px;
+            padding: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .greeting-text {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 80px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: black;
+            line-height: 1.1;
+        }
+
+        .hero-image {
+            width: 500px;
+            max-width: 500px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-profile-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image-placeholder span {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .image-placeholder p {
+            margin: 0;
+            opacity: 0.8;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Download Resume Button */
+        .cta-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-btn {
+            width: 224px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: white;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 3px;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .download-btn-inner {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .download-btn:hover .download-btn-inner {
+            background: transparent;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .download-btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: black;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-arrow {
+            font-size: 14px;
+            color: black;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-btn:hover .btn-text,
+        .download-btn:hover .btn-arrow {
+            color: white;
+        }
+
+
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* About Me Section */
+        .about-section {
+            background: white;
+            padding: 6rem 2rem;
+            margin: 0;
+        }
+
+        /* Spring Animation Styles */
+        .spring-animate {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .spring-animate.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .spring-animate.delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .spring-animate.delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .spring-animate.delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .spring-animate.delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .spring-animate.delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-left {
+            padding-right: 2rem;
+        }
+
+        .experience-label {
+            display: inline-block;
+            padding: 3px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .label-text {
+            display: block;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 17px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #333;
+        }
+
+        .about-heading {
+            font-size: 3rem;
+            font-weight: 700;
+            color: black;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .about-right {
+            padding-left: 2rem;
+        }
+
+        .about-right .experience-label {
+            margin-bottom: 2rem;
+        }
+
+        .experience-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .experience-entry {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 2rem;
+        }
+
+        .experience-entry:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .company-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .role-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: black;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .role-duration {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            padding: 6rem 2rem;
+            margin: 0;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .skill-category {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            margin: 0 auto 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .skill-list {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Work Samples Section */
+        .work-samples-section {
+            background: white;
+            padding: 6rem 2rem;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-samples-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .work-samples-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px, 80px 80px;
+            z-index: 1;
+        }
+
+        .work-samples-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .work-samples-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .work-samples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .work-sample {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-sample:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .sample-header {
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sample-icon {
+            font-size: 1.8rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sample-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sample-description {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.7;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        /* Professional Certifications Section */
+        .certifications-section {
+            background: white;
+            padding: 6rem 2rem;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certifications-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.02) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .certifications-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certifications-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+            margin-bottom: 4rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .certification-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+        }
+
+        .certification-card::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 13px;
+            z-index: 1;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .cert-header {
+            position: relative;
+            z-index: 2;
+            background: #1a1a1a;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 120px;
+        }
+
+        .cert-logo {
+            width: 60px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-image {
+            width: 80px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .aws-logo,
+        .google-logo {
+            width: 100%;
+            height: 100%;
+        }
+
+        .cert-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .cert-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: black;
+            margin: 0 0 1rem 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .cert-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+        }
+
+
+
+        /* Mobile Responsive for Certifications */
+        @media (max-width: 768px) {
+            .certifications-section {
+                padding: 4rem 1rem;
+            }
+
+            .certifications-heading {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                max-width: 400px;
+            }
+
+            .cert-header {
+                padding: 1.5rem;
+                min-height: 100px;
+            }
+
+            .cert-logo {
+                width: 60px;
+                height: 45px;
+            }
+
+            .cert-content {
+                padding: 1.5rem;
+            }
+
+            .cert-title {
+                font-size: 1.2rem;
+            }
+
+            .cert-description {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certifications-section {
+                padding: 3rem 0.75rem;
+            }
+
+            .certifications-heading {
+                font-size: 1.75rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .certifications-grid {
+                gap: 1.5rem;
+                max-width: 350px;
+            }
+
+            .cert-header {
+                padding: 1.25rem;
+                min-height: 90px;
+            }
+
+            .cert-logo {
+                width: 50px;
+                height: 40px;
+            }
+
+            .cert-content {
+                padding: 1.25rem;
+            }
+
+            .cert-title {
+                font-size: 1.1rem;
+                line-height: 1.2;
+            }
+
+            .cert-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+        }
+
+        /* Case Study Section */
+        .case-study-section {
+            background: #0f0f0f;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Marquee Header */
+        .marquee-header {
+            background: #0f0f0f;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .marquee-container {
+            width: 90%;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10%;
+            height: 100%;
+            background: linear-gradient(to right, #0f0f0f, transparent);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10%;
+            height: 100%;
+            background: linear-gradient(to left, #0f0f0f, transparent);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            gap: 4rem;
+        }
+
+        .marquee-content span {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: #ffffff;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .gradient-separator {
+            width: 90%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            margin: 1rem auto 0 auto;
+        }
+
+        /* Main Case Study Content */
+        .case-study-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .case-study-label {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .case-study-button {
+            display: inline-block;
+            padding: 2px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .label-text-dark {
+            display: block;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 18px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: black;
+        }
+
+        /* Case Study Grid */
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .case-study-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .case-study-svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .card-year {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .card-arrow {
+            font-size: 1.2rem;
+            color: #ffffff;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .case-study-card:hover .card-arrow {
+            opacity: 1;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: black;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .case-study-card {
+            cursor: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            width: 80%;
+            height: 90%;
+            max-width: 1000px;
+            background: #1a1a1a;
+            border-radius: 16px;
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-content {
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            border-radius: 13px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: #1a1a1a;
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+            margin: 0;
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 2px solid #666;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .modal-close:hover {
+            border-color: #ff6b35;
+            color: #ff6b35;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #888;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .modal-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.7;
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+        .highlight-quote {
+            background: #2a2a2a;
+            border-left: 4px solid #ff6b35;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .result-item {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .result-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #0f0f0f;
+            padding: 6rem 2rem;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Contact Header */
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .collaboration-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            border-color: #ff6b35;
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        /* Gradient Line */
+        .contact-gradient-line {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            margin-bottom: 4rem;
+            border-radius: 2px;
+        }
+
+        /* Contact Content */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Left Column */
+        .contact-left {
+            padding-right: 2rem;
+        }
+
+        .contact-label {
+            display: inline-block;
+            padding: 3px;
+            background: linear-gradient(90deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .label-text-contact {
+            display: block;
+            background: #0f0f0f;
+            padding: 8px 16px;
+            border-radius: 17px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .contact-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3rem;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .contact-label-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #888;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Contact Resume Button */
+        .contact-resume-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .contact-download-btn {
+            width: 224px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #0f0f0f;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 3px;
+        }
+
+        .contact-download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .contact-download-btn-inner {
+            width: 100%;
+            height: 100%;
+            background: #0f0f0f;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .contact-download-btn:hover .contact-download-btn-inner {
+            background: transparent;
+        }
+
+        .contact-download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .contact-download-btn:hover::before {
+            opacity: 1;
+        }
+
+        .contact-btn-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-btn-arrow {
+            font-size: 14px;
+            color: #ffffff;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-download-btn:hover .contact-btn-text,
+        .contact-download-btn:hover .contact-btn-arrow {
+            color: white;
+        }
+
+        /* Right Column - Form */
+        .contact-right {
+            padding-left: 2rem;
+        }
+
+        .form-heading {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-textarea {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1rem;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #888;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            height: 56px;
+            background: #0f0f0f;
+            border: 3px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 3px;
+            margin-top: 1rem;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: #0f0f0f;
+            border-radius: 9px;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover::before {
+            background: transparent;
+        }
+
+        .submit-text,
+        .submit-arrow {
+            position: relative;
+            z-index: 2;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        .submit-text {
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            margin-right: 8px;
+        }
+
+        .submit-arrow {
+            font-size: 16px;
+        }
+
+        .submit-btn:hover .submit-text,
+        .submit-btn:hover .submit-arrow {
+            color: #ffffff;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background: #0f0f0f;
+            padding: 1.5rem 2rem;
+            margin: 0;
+            border-top: 1px solid #333;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo-image {
+            width: 120px;
+            height: 60px;
+            object-fit: contain;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-logo-image:hover {
+            opacity: 0.8;
+        }
+
+        .footer-logo-placeholder {
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 2px dashed #444;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo-placeholder:hover {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+        }
+
+        .footer-logo-placeholder span {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            opacity: 0.7;
+        }
+
+        .footer-logo-placeholder p {
+            margin: 0;
+            opacity: 0.8;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .copyright-text {
+            font-size: 0.9rem;
+            color: #888;
+            margin: 0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        /* Footer Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-section {
+                padding: 1rem 1rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .footer-logo-image {
+                width: 100px;
+                height: 50px;
+            }
+
+            .footer-logo-placeholder {
+                width: 100px;
+                height: 50px;
+            }
+
+            .footer-logo-placeholder span {
+                font-size: 1.2rem;
+            }
+
+            .copyright-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-section {
+                padding: 0.75rem 0.75rem;
+            }
+
+            .footer-container {
+                gap: 1rem;
+            }
+
+            .footer-logo-image {
+                width: 90px;
+                height: 45px;
+            }
+
+            .footer-logo-placeholder {
+                width: 90px;
+                height: 45px;
+            }
+
+            .footer-logo-placeholder span {
+                font-size: 1rem;
+            }
+
+            .footer-logo-placeholder p {
+                font-size: 0.7rem;
+            }
+
+            .copyright-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Mobile Responsive for Contact */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 4rem 1rem;
+            }
+
+            .contact-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .collaboration-text {
+                font-size: 1.5rem;
+            }
+
+            .social-icons {
+                gap: 1rem;
+            }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-left,
+            .contact-right {
+                padding: 0;
+            }
+
+            .contact-heading {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .form-heading {
+                font-size: 1.5rem;
+            }
+
+            .contact-item {
+                gap: 0.75rem;
+            }
+
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section {
+                padding: 3rem 0.75rem;
+            }
+
+            .collaboration-text {
+                font-size: 1.25rem;
+                line-height: 1.3;
+            }
+
+            .contact-gradient-line {
+                margin-bottom: 3rem;
+            }
+
+            .contact-content {
+                gap: 2.5rem;
+            }
+
+            .contact-heading {
+                font-size: 1.75rem;
+            }
+
+            .form-heading {
+                font-size: 1.3rem;
+            }
+
+            .contact-details {
+                gap: 1.5rem;
+            }
+
+            .contact-form {
+                gap: 1.25rem;
+            }
+
+            .form-input,
+            .form-textarea {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+            }
+
+            .submit-btn {
+                height: 52px;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                height: 95%;
+            }
+
+            .modal-header {
+                padding: 1.5rem 1.5rem 1rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.8rem;
+                padding-right: 1rem;
+            }
+
+            .modal-body {
+                padding: 0 1.5rem 1.5rem 1.5rem;
+            }
+
+            .modal-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .section-content {
+                font-size: 1rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* View All Projects Button */
+        .view-all-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .view-all-btn {
+            width: 280px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #0f0f0f;
+            border: 3px solid transparent;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 3px;
+        }
+
+        .view-all-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .view-all-btn-inner {
+            width: 100%;
+            height: 100%;
+            background: #0f0f0f;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s ease;
+        }
+
+        .view-all-btn:hover .view-all-btn-inner {
+            background: transparent;
+        }
+
+        .view-all-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #8b5cf6 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .view-all-btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-text-dark {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-arrow-dark {
+            font-size: 14px;
+            color: #ffffff;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .view-all-btn:hover .btn-text-dark,
+        .view-all-btn:hover .btn-arrow-dark {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .work-samples-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .work-samples-heading {
+                font-size: 2.2rem;
+                margin-bottom: 3rem;
+            }
+
+            .sample-header {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .sample-description {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+
+            .sample-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo-image {
+                width: 100px;
+                height: 32px;
+            }
+
+            .logo-placeholder {
+                width: 100px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+
+            .logo-placeholder span {
+                font-size: 1rem;
+            }
+
+            .mobile-menu {
+                width: 100%;
+                right: -100%;
+            }
+
+            .mobile-menu.active {
+                right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo-image {
+                width: 80px;
+                height: 28px;
+            }
+
+            .logo-placeholder {
+                width: 80px;
+                height: 28px;
+                font-size: 0.6rem;
+            }
+
+            .logo-placeholder span {
+                font-size: 0.9rem;
+            }
+
+            .mobile-menu {
+                padding: 1.5rem;
+            }
+
+            .mobile-menu-header {
+                margin-bottom: 2rem;
+            }
+
+            .mobile-nav-links a {
+                font-size: 1rem;
+                padding: 0.875rem 0;
+            }
+
+            .hero {
+                padding: 100px 20px 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                width: 90%;
+                max-width: 400px;
+                height: 480px;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-left,
+            .about-right {
+                padding: 0;
+            }
+
+            .about-heading {
+                font-size: 2rem;
+            }
+
+            .role-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .role-title {
+                font-size: 1.2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .skills-heading {
+                font-size: 2rem;
+            }
+
+            .work-samples-section {
+                padding: 4rem 1rem;
+            }
+
+            .work-samples-heading {
+                font-size: 2rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .work-samples-list {
+                gap: 2rem;
+            }
+
+            .sample-header {
+                padding: 1rem 1.25rem;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .sample-icon {
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+
+            .sample-title {
+                font-size: 1.1rem;
+                line-height: 1.3;
+            }
+
+            .sample-description {
+                padding: 1.25rem;
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .work-samples-section {
+                padding: 3rem 0.75rem;
+            }
+
+            .work-samples-heading {
+                font-size: 1.75rem;
+                margin-bottom: 2rem;
+                padding: 0 0.5rem;
+            }
+
+            .work-samples-list {
+                gap: 1.5rem;
+            }
+
+            .work-sample {
+                border-radius: 12px;
+                margin: 0 0.25rem;
+            }
+
+            .sample-header {
+                padding: 0.875rem 1rem;
+                gap: 0.5rem;
+            }
+
+            .sample-icon {
+                font-size: 1.3rem;
+            }
+
+            .sample-title {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+
+            .sample-description {
+                padding: 1rem;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .work-sample:hover {
+                transform: translateY(-2px);
+            }
+
+            /* Case Study Mobile Styles */
+            .case-study-container {
+                padding: 4rem 1rem;
+            }
+
+            .marquee-content span {
+                font-size: 1.5rem;
+            }
+
+            .case-study-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+            }
+
+            .view-all-btn {
+                width: 250px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .case-study-container {
+                padding: 3rem 0.75rem;
+            }
+
+            .marquee-header {
+                padding: 1.5rem 0;
+            }
+
+            .marquee-content span {
+                font-size: 1.2rem;
+            }
+
+            .case-study-grid {
+                gap: 1.5rem;
+            }
+
+            .case-study-card {
+                margin: 0 0.25rem;
+            }
+
+            .card-content {
+                padding: 1.25rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+
+            .view-all-btn {
+                width: 220px;
+                height: 48px;
+            }
+
+            .btn-text-dark {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <!-- Replace the src with your actual logo URL -->
+                <img src="logo_black.svg" 
+                     alt="Company Logo" 
+                     class="logo-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                
+                <!-- Fallback placeholder (shown if image fails to load) -->
+                <div class="logo-placeholder" style="display: none;">
+                    <span>🏢</span>
+                    <p>Your Logo</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('hero')">Home</a></li>
+                <li><a onclick="scrollToSection('about')">About</a></li>
+                <li><a onclick="scrollToSection('skills')">Skills</a></li>
+                <li><a onclick="scrollToSection('work-samples')">Work</a></li>
+                <li><a onclick="scrollToSection('case-study')">Case Studies</a></li>
+                <li><a onclick="scrollToSection('certifications')">Certifications</a></li>
+                <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            </ul>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-menu-logo">Menu</div>
+            <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a onclick="scrollToSectionMobile('hero')">Home</a></li>
+            <li><a onclick="scrollToSectionMobile('about')">About</a></li>
+            <li><a onclick="scrollToSectionMobile('skills')">Skills</a></li>
+            <li><a onclick="scrollToSectionMobile('work-samples')">Work</a></li>
+            <li><a onclick="scrollToSectionMobile('case-study')">Case Studies</a></li>
+            <li><a onclick="scrollToSectionMobile('certifications')">Certifications</a></li>
+            <li><a onclick="scrollToSectionMobile('contact')">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="greeting-box">
+                <div class="greeting-text">HELLO! I AM CARL MAGDAEL</div>
+            </div>
+            <h1>IT Support Specialist & Cloud Enthusiast</h1>
+            <div class="hero-image">
+                <!-- Replace the src with your profile image URL -->
+                <img src="pic.png" 
+                     alt="Carl Magdael - Profile Photo" 
+                     class="hero-profile-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                
+                <!-- Fallback placeholder (shown if image fails to load) -->
+                <div class="image-placeholder" style="display: none;">
+                    <span>📷</span>
+                    <p>Replace with your profile photo</p>
+                </div>
+            </div>
+            <div class="cta-container">
+                <a href="#" class="download-btn" onclick="downloadResume(event)">
+                    <div class="download-btn-inner">
+                        <span class="btn-text">DOWNLOAD RESUME</span>
+                        <span class="btn-arrow">↗</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section about-section">
+        <div class="about-container">
+            <!-- Left Column -->
+            <div class="about-left">
+                <div class="experience-label spring-animate">
+                    <span class="label-text">ABOUT ME</span>
+                </div>
+
+                <p class="about-description spring-animate delay-2">I'm a Computer Science student with hands-on experience in IT support and cloud-based systems. Throughout my academic journey and training, I've developed strong skills in troubleshooting, system administration, and data analysis. I enjoy solving technical challenges and finding efficient ways to optimize systems and workflows. With a foundation in tools like AWS, MySQL, and Python, I'm passionate about using technology to improve performance, reliability, and innovation in modern IT environments.</p>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="about-right">
+                <div class="experience-label spring-animate delay-1">
+                    <span class="label-text">PROFESSIONAL EXPERIENCE</span>
+                </div>
+                <div class="experience-timeline">
+                    <div class="experience-entry spring-animate delay-2">
+                        <div class="company-name">NIMBUSTECH SOLUTIONS</div>
+                        <div class="role-header">
+                            <div class="role-title">CLOUD SUPPORT ASSOCIATE</div>
+                            <div class="role-duration">(2024-2025)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-entry spring-animate delay-3">
+                        <div class="company-name">BYTE INC.</div>
+                        <div class="role-header">
+                            <div class="role-title">IT SUPPORT SPECIALIST</div>
+                            <div class="role-duration">(2023-2024)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-entry spring-animate delay-4">
+                        <div class="company-name">CLOUDBRIDGE INC.</div>
+                        <div class="role-header">
+                            <div class="role-title">IT OJT-TRAINEE</div>
+                            <div class="role-duration">(2022-2023)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+        <div class="skills-container">
+            <h2 class="skills-heading spring-animate">SKILLS</h2>
+            <div class="skills-grid">
+                <div class="skill-category spring-animate delay-1">
+                    <div class="skill-icon"></div>
+                    <h3 class="category-title">Cloud & Platforms</h3>
+                    <p class="skill-list">AWS, Microsoft Azure, Google Cloud Platform, Docker, Kubernetes</p>
+                </div>
+                
+                <div class="skill-category spring-animate delay-2">
+                    <div class="skill-icon"></div>
+                    <h3 class="category-title">Programming & Databases</h3>
+                    <p class="skill-list">Python, JavaScript, SQL, MySQL, PostgreSQL, MongoDB</p>
+                </div>
+                
+                <div class="skill-category spring-animate delay-3">
+                    <div class="skill-icon"></div>
+                    <h3 class="category-title">IT Support & Tools</h3>
+                    <p class="skill-list">Windows Server, Linux, Active Directory, ServiceNow, Jira, Git</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Samples Section -->
+    <section id="work-samples" class="section work-samples-section">
+        <div class="work-samples-container">
+            <h2 class="work-samples-heading spring-animate">WORK SAMPLES / ARTIFACTS</h2>
+            
+            <div class="work-samples-list">
+                <!-- Work Sample 1 -->
+                <div class="work-sample spring-animate delay-1">
+                    <div class="sample-header">
+                        <span class="sample-icon">🧩</span>
+                        <h3 class="sample-title">1. Customer Data Management Project</h3>
+                    </div>
+                    <p class="sample-description">During my OJT, I created a simple customer data management system using MySQL and Python to simulate how a CRM stores and updates client information. I designed relational tables to handle customer records, transactions, and feedback data, and implemented basic SQL queries for sorting, filtering, and updating entries. This project helped me understand how CRM platforms organize and access information efficiently while maintaining data integrity and consistency across different departments.</p>
+                </div>
+
+                <!-- Work Sample 2 -->
+                <div class="work-sample spring-animate delay-2">
+                    <div class="sample-header">
+                        <span class="sample-icon">☁️</span>
+                        <h3 class="sample-title">2. CRM Insights Dashboard (Mock Project)</h3>
+                    </div>
+                    <p class="sample-description">As part of my coursework, I designed a mock CRM analytics dashboard that visualized key customer metrics such as satisfaction ratings, support response time, and retention rates. Using Microsoft Excel and Google Data Studio, I created data visualizations and summaries that could be used by a business to make data-driven decisions. The project strengthened my analytical and visualization skills and demonstrated my ability to translate raw data into actionable insights — a key aspect of CRM analysis.</p>
+                </div>
+
+                <!-- Work Sample 3 -->
+                <div class="work-sample spring-animate delay-3">
+                    <div class="sample-header">
+                        <span class="sample-icon">💻</span>
+                        <h3 class="sample-title">3. Cloud-Based Support Ticket Tracker</h3>
+                    </div>
+                    <p class="sample-description">To combine my IT support and data analytics skills, I built a small-scale cloud-hosted support ticket tracker using AWS S3, Lambda, and Python scripts. The system automatically categorized support issues based on urgency and stored records for future analysis. This experience deepened my understanding of how automation and cloud systems can support customer operations, streamline workflows, and maintain accurate service data for analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study Section -->
+    <section id="case-study" class="section case-study-section">
+        <!-- Marquee Header -->
+        <div class="marquee-header">
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <span>Technical Troubleshooting & Support</span>
+                    <span>Cloud Infrastructure Management</span>
+                    <span>Data Analysis</span>
+                    <span>Technical Troubleshooting & Support</span>
+                    <span>Cloud Infrastructure Management</span>
+                    <span>Data Analysis</span>
+                </div>
+            </div>
+            <div class="gradient-separator"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="case-study-container">
+            <div class="case-study-label spring-animate">
+                <div class="case-study-button">
+                    <span class="label-text-dark">CASE STUDY</span>
+                </div>
+            </div>
+
+            <div class="case-study-grid">
+                <!-- Case Study Card 1 -->
+                <div class="case-study-card spring-animate delay-1">
+                    <div class="card-image">
+                        <svg viewBox="0 0 400 200" class="case-study-svg">
+                            <defs>
+                                <linearGradient id="crmGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.8" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge> 
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Background -->
+                            <rect width="400" height="200" fill="#1a1a1a"/>
+                            
+                            <!-- Central CRM Circle -->
+                            <circle cx="200" cy="100" r="40" fill="none" stroke="url(#crmGradient)" stroke-width="2" opacity="0.8"/>
+                            <circle cx="200" cy="100" r="25" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            
+                            <!-- CRM Text -->
+                            <text x="200" y="105" text-anchor="middle" fill="#ffffff" font-family="Inter" font-size="12" font-weight="600" filter="url(#glow)">CRM</text>
+                            
+                            <!-- Data Nodes -->
+                            <circle cx="120" cy="60" r="8" fill="url(#crmGradient)" opacity="0.9"/>
+                            <circle cx="280" cy="60" r="8" fill="url(#crmGradient)" opacity="0.9"/>
+                            <circle cx="120" cy="140" r="8" fill="url(#crmGradient)" opacity="0.9"/>
+                            <circle cx="280" cy="140" r="8" fill="url(#crmGradient)" opacity="0.9"/>
+                            
+                            <!-- Connection Lines -->
+                            <line x1="160" y1="100" x2="120" y2="60" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="240" y1="100" x2="280" y2="60" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="160" y1="100" x2="120" y2="140" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="240" y1="100" x2="280" y2="140" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            
+                            <!-- Binary Code Pattern -->
+                            <text x="50" y="30" fill="#ffffff" font-family="monospace" font-size="8" opacity="0.3">101010</text>
+                            <text x="320" y="30" fill="#ffffff" font-family="monospace" font-size="8" opacity="0.3">110011</text>
+                            <text x="50" y="180" fill="#ffffff" font-family="monospace" font-size="8" opacity="0.3">010101</text>
+                            <text x="320" y="180" fill="#ffffff" font-family="monospace" font-size="8" opacity="0.3">001100</text>
+                            
+                            <!-- Gear Elements -->
+                            <g transform="translate(80,40)">
+                                <circle r="12" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+                                <circle r="8" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+                            </g>
+                            <g transform="translate(320,160)">
+                                <circle r="12" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+                                <circle r="8" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-labels">
+                            <span class="card-label">CASE STUDY</span>
+                            <span class="card-year">2023</span>
+                        </div>
+                        <div class="card-title-row">
+                            <h3 class="card-title">Enhancing CRM Data Accuracy through Automation</h3>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study Card 2 -->
+                <div class="case-study-card spring-animate delay-2">
+                    <div class="card-image">
+                        <svg viewBox="0 0 400 200" class="case-study-svg">
+                            <defs>
+                                <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.8" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Background -->
+                            <rect width="400" height="200" fill="#1a1a1a"/>
+                            
+                            <!-- Cloud Shape -->
+                            <path d="M150 80 Q140 70 130 80 Q120 70 110 80 Q100 85 105 95 Q100 105 110 110 L170 110 Q180 105 175 95 Q180 85 170 80 Q160 70 150 80 Z" 
+                                  fill="none" stroke="url(#cloudGradient)" stroke-width="2" opacity="0.8"/>
+                            
+                            <!-- Network Nodes -->
+                            <circle cx="200" cy="50" r="6" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="250" cy="80" r="6" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="300" cy="120" r="6" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="100" cy="130" r="6" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="50" cy="100" r="6" fill="#ffffff" opacity="0.8"/>
+                            
+                            <!-- Connection Lines -->
+                            <line x1="140" y1="95" x2="200" y2="50" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="140" y1="95" x2="250" y2="80" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="140" y1="95" x2="300" y2="120" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="140" y1="95" x2="100" y2="130" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            <line x1="140" y1="95" x2="50" y2="100" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+                            
+                            <!-- Folder Icon -->
+                            <rect x="280" y="40" width="20" height="15" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <rect x="275" y="35" width="8" height="5" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            
+                            <!-- Email Icon -->
+                            <rect x="320" y="150" width="24" height="16" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="320" y1="150" x2="332" y2="158" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <line x1="344" y1="150" x2="332" y2="158" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            
+                            <!-- Person Avatar -->
+                            <circle cx="70" cy="40" r="8" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            <path d="M62 48 Q62 44 70 44 Q78 44 78 48" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+                            
+                            <!-- Data Flow Arrows -->
+                            <path d="M180 130 L190 130 L185 125 M190 130 L185 135" stroke="url(#cloudGradient)" stroke-width="1" fill="none" opacity="0.8"/>
+                            <path d="M220 160 L230 160 L225 155 M230 160 L225 165" stroke="url(#cloudGradient)" stroke-width="1" fill="none" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-labels">
+                            <span class="card-label">CASE STUDY</span>
+                            <span class="card-year">2023</span>
+                        </div>
+                        <div class="card-title-row">
+                            <h3 class="card-title">Streamlining IT Ticket Management with Cloud Automation</h3>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Professional Certifications Section -->
+    <section id="certifications" class="section certifications-section">
+        <div class="certifications-container">
+            <h2 class="certifications-heading spring-animate">PROFESSIONAL CERTIFICATIONS</h2>
+            
+            <div class="certifications-grid">
+                <!-- AWS Certificate Card -->
+                <div class="certification-card spring-animate delay-1">
+                    <div class="cert-header">
+                        <div class="cert-logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" 
+                                 alt="AWS Logo" 
+                                 class="aws-logo"
+                                 onerror="this.src=''; this.alt='AWS Logo (Image failed to load)'; this.style.display='none';">
+                        </div>
+                        <div class="cert-image">
+                            <svg viewBox="0 0 80 60" class="certificate-svg">
+                                <defs>
+                                    <linearGradient id="certGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+                                        <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:0.9" />
+                                    </linearGradient>
+                                    <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ff6600;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- Certificate Background -->
+                                <rect x="5" y="8" width="70" height="50" fill="url(#certGradient)" stroke="#ddd" stroke-width="1" rx="3"/>
+                                
+                                <!-- Certificate Border -->
+                                <rect x="8" y="11" width="64" height="44" fill="none" stroke="#ccc" stroke-width="0.5" rx="2"/>
+                                
+                                <!-- Header Lines -->
+                                <line x1="12" y1="18" x2="68" y2="18" stroke="#333" stroke-width="0.8" opacity="0.7"/>
+                                <line x1="12" y1="22" x2="55" y2="22" stroke="#666" stroke-width="0.5" opacity="0.6"/>
+                                
+                                <!-- Content Lines -->
+                                <line x1="12" y1="28" x2="68" y2="28" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                <line x1="12" y1="32" x2="60" y2="32" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                <line x1="12" y1="36" x2="65" y2="36" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                
+                                <!-- Signature Line -->
+                                <line x1="45" y1="45" x2="68" y2="45" stroke="#333" stroke-width="0.5" opacity="0.7"/>
+                                
+                                <!-- Ribbon/Seal -->
+                                <circle cx="65" cy="45" r="8" fill="url(#ribbonGradient)" opacity="0.8"/>
+                                <circle cx="65" cy="45" r="5" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.9"/>
+                                <text x="65" y="47" text-anchor="middle" fill="#fff" font-family="Inter" font-size="3" font-weight="700">✓</text>
+                                
+                                <!-- Corner Decorations -->
+                                <circle cx="12" cy="15" r="1.5" fill="url(#ribbonGradient)" opacity="0.6"/>
+                                <circle cx="68" cy="15" r="1.5" fill="url(#ribbonGradient)" opacity="0.6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <h3 class="cert-title">AWS Certified Cloud Practitioner</h3>
+                        <p class="cert-description">Validates foundational knowledge of the AWS Cloud, services, and terminology.</p>
+
+                    </div>
+                </div>
+
+                <!-- Google Certificate Card -->
+                <div class="certification-card spring-animate delay-2">
+                    <div class="cert-header">
+                        <div class="cert-logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" 
+                                 alt="Google Logo" 
+                                 class="google-logo"
+                                 onerror="this.src=''; this.alt='Google Logo (Image failed to load)'; this.style.display='none';">
+                        </div>
+                        <div class="cert-image">
+                            <svg viewBox="0 0 80 60" class="certificate-svg">
+                                <defs>
+                                    <linearGradient id="certGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+                                        <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:0.9" />
+                                    </linearGradient>
+                                    <linearGradient id="ribbonGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#4285f4;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#34a853;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                
+                                <!-- Certificate Background -->
+                                <rect x="5" y="8" width="70" height="50" fill="url(#certGradient2)" stroke="#ddd" stroke-width="1" rx="3"/>
+                                
+                                <!-- Certificate Border -->
+                                <rect x="8" y="11" width="64" height="44" fill="none" stroke="#ccc" stroke-width="0.5" rx="2"/>
+                                
+                                <!-- Header Lines -->
+                                <line x1="12" y1="18" x2="68" y2="18" stroke="#333" stroke-width="0.8" opacity="0.7"/>
+                                <line x1="12" y1="22" x2="55" y2="22" stroke="#666" stroke-width="0.5" opacity="0.6"/>
+                                
+                                <!-- Content Lines -->
+                                <line x1="12" y1="28" x2="68" y2="28" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                <line x1="12" y1="32" x2="60" y2="32" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                <line x1="12" y1="36" x2="65" y2="36" stroke="#999" stroke-width="0.4" opacity="0.5"/>
+                                
+                                <!-- Signature Line -->
+                                <line x1="45" y1="45" x2="68" y2="45" stroke="#333" stroke-width="0.5" opacity="0.7"/>
+                                
+                                <!-- Ribbon/Seal -->
+                                <circle cx="65" cy="45" r="8" fill="url(#ribbonGradient2)" opacity="0.8"/>
+                                <circle cx="65" cy="45" r="5" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.9"/>
+                                <text x="65" y="47" text-anchor="middle" fill="#fff" font-family="Inter" font-size="3" font-weight="700">✓</text>
+                                
+                                <!-- Corner Decorations -->
+                                <circle cx="12" cy="15" r="1.5" fill="url(#ribbonGradient2)" opacity="0.6"/>
+                                <circle cx="68" cy="15" r="1.5" fill="url(#ribbonGradient2)" opacity="0.6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <h3 class="cert-title">Google IT Support Certificate</h3>
+                        <p class="cert-description">Validates core skills in troubleshooting, networking, system administration, and security.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="contact-container">
+            <!-- Contact Header -->
+            <div class="contact-header">
+                <div class="header-left">
+                    <h2 class="collaboration-text">Open to collaborations & career growth</h2>
+                </div>
+                <div class="header-right">
+                    <div class="social-icons">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gradient Line -->
+            <div class="contact-gradient-line"></div>
+            
+            <!-- Contact Content -->
+            <div class="contact-content">
+                <!-- Left Column -->
+                <div class="contact-left">
+                    <div class="contact-label spring-animate">
+                        <span class="label-text-contact">CONTACT ME!</span>
+                    </div>
+                    
+                    <h3 class="contact-heading spring-animate delay-1">Get in Touch</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item spring-animate delay-2">
+                            <div class="contact-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-info">
+                                <span class="contact-label-text">Email</span>
+                                <span class="contact-value">carl.magdael@email.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item spring-animate delay-3">
+                            <div class="contact-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-info">
+                                <span class="contact-label-text">Phone</span>
+                                <span class="contact-value">+1 (555) 123-4567</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-resume-container spring-animate delay-4">
+                            <a href="#" class="contact-download-btn" onclick="downloadResume(event)">
+                                <div class="contact-download-btn-inner">
+                                    <span class="contact-btn-text">DOWNLOAD RESUME</span>
+                                    <span class="contact-btn-arrow">↗</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="contact-right">
+                    <h3 class="form-heading spring-animate delay-1">Send a message</h3>
+                    
+                    <form class="contact-form spring-animate delay-2" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="What's this about?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project or opportunity..." rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <span class="submit-text">SUBMIT NOW</span>
+                            <span class="submit-arrow">→</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <!-- Replace the src with your actual footer logo URL -->
+                    <img src="logo_white.svg" 
+                         alt="Company Footer Logo" 
+                         class="footer-logo-image"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    
+                    <!-- Fallback placeholder (shown if image fails to load) -->
+                    <div class="footer-logo-placeholder" style="display: none;">
+                        <span>🏢</span>
+                        <p>Company Logo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p class="copyright-text">© 2024 Carl Magdael. All rights reserved. Designed with Canva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor">VIEW</div>
+
+    <!-- CRM Modal -->
+    <div class="modal-overlay" id="crmModal">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Enhancing CRM Data Accuracy through Automation</h2>
+                    <button class="modal-close" id="crmModalClose">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Role</span>
+                            <span class="meta-value">IT OJT Trainee</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Company</span>
+                            <span class="meta-value">CloudBridge Inc.</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Year</span>
+                            <span class="meta-value">2023</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Situation</h3>
+                        <p class="section-content">
+                            CloudBridge Inc. faced recurring data issues within its CRM system — duplicate, incomplete, and inconsistent client records. These errors caused unreliable reports and inefficient marketing segmentation, leading to inaccurate campaign targeting.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Task</h3>
+                        <p class="section-content">
+                            As an IT intern, I was tasked to assist in improving the accuracy and reliability of the CRM database by creating an automated data-validation process that would reduce manual errors and ensure consistency.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Action</h3>
+                        <p class="section-content">
+                            I worked with the CRM Administrator and IT team to analyze the database structure and data flow. Using Python (Pandas, Regex) and MySQL (SQLAlchemy), I developed a script to automatically identify duplicates, standardize field formats, and generate weekly summary reports. I then configured the process to run on a scheduled cron job, allowing continuous validation and easy monitoring.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Result</h3>
+                        <p class="section-content">
+                            The automated system reduced duplicate records by 37%, shortened manual data-cleaning time by 50%, and improved report accuracy by 20%. This significantly enhanced data integrity across departments.
+                        </p>
+                        
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-number">37%</div>
+                                <div class="result-label">Fewer Duplicate Records</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-number">50%</div>
+                                <div class="result-label">Less Manual Cleaning</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-number">20%</div>
+                                <div class="result-label">Better Report Accuracy</div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cloud Modal -->
+    <div class="modal-overlay" id="cloudModal">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Streamlining IT Ticket Management with Cloud Automation</h2>
+                    <button class="modal-close" id="cloudModalClose">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Role</span>
+                            <span class="meta-value">Cloud Support Associate</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Company</span>
+                            <span class="meta-value">NimbusTech Solutions</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Year</span>
+                            <span class="meta-value">2024–2025</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Situation</h3>
+                        <p class="section-content">
+                            NimbusTech Solutions' support team managed hundreds of daily service tickets through manual spreadsheets. The lack of automation made prioritization slow, delayed response times, and limited the ability to measure performance effectively.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Task</h3>
+                        <p class="section-content">
+                            I was assigned to propose and implement a scalable, cloud-based solution that would automate ticket categorization, monitoring, and reporting while reducing resolution times.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Action</h3>
+                        <p class="section-content">
+                            Collaborating with the Operations Manager and Senior Cloud Engineer, I designed and implemented a cloud architecture using AWS services — Amazon S3 for data storage, AWS Lambda for Python-based automation, Amazon RDS (MySQL) for centralized data management, and QuickSight for performance visualization. The system auto-classified tickets by urgency, assigned them to teams, and displayed real-time analytics on dashboards.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3 class="section-title">Result</h3>
+                        <p class="section-content">
+                            After deployment, the new workflow reduced average ticket resolution time by 27%, improved SLA compliance by 18%, and increased client satisfaction from 88% to 95% within three months.
+                        </p>
+                        
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-number">27%</div>
+                                <div class="result-label">Faster Resolution Time</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-number">18%</div>
+                                <div class="result-label">Better SLA Compliance</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-number">95%</div>
+                                <div class="result-label">Client Satisfaction</div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling navigation
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mobile menu smooth scrolling (closes menu after navigation)
+        function scrollToSectionMobile(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.scrollIntoView({ behavior: 'smooth' });
+            closeMobileMenu();
+        }
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        function openMobileMenu() {
+            mobileMenuToggle.classList.add('active');
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners for mobile menu
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Scroll animations
+        function handleScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+
+            // Spring animations for About Me section
+            const springElements = document.querySelectorAll('.spring-animate');
+            springElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('animate-in');
+                }
+            });
+        }
+
+
+
+        // Navbar scroll effect
+        function handleNavbarScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'white';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.background = 'white';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        }
+
+        // Download resume function
+        function downloadResume(event) {
+            event.preventDefault();
+            
+            // Create a sample PDF download (in a real scenario, this would link to an actual PDF file)
+            const link = document.createElement('a');
+            link.href = 'resume.pdf';
+            link.download = 'Carl-Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show confirmation message
+            alert('Resume download started! Check your downloads folder.');
+        }
+
+
+
+        // View all projects function
+        function viewAllProjects(event) {
+            event.preventDefault();
+            alert('This would navigate to a full projects portfolio page. Feature coming soon!');
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleNavbarScroll);
+        window.addEventListener('load', handleScroll);
+
+        // Custom cursor functionality
+        const customCursor = document.getElementById('customCursor');
+        const caseStudyCards = document.querySelectorAll('.case-study-card');
+
+        // Update cursor position
+        function updateCursorPosition(e) {
+            customCursor.style.left = e.clientX + 'px';
+            customCursor.style.top = e.clientY + 'px';
+        }
+
+        // Show cursor when hovering case study cards
+        caseStudyCards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                customCursor.classList.add('active');
+                document.addEventListener('mousemove', updateCursorPosition);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                customCursor.classList.remove('active');
+                document.removeEventListener('mousemove', updateCursorPosition);
+            });
+
+            // Add click functionality to both cards
+            if (index === 0) {
+                card.addEventListener('click', openCRMModal);
+            } else if (index === 1) {
+                card.addEventListener('click', openCloudModal);
+            }
+        });
+
+        // Modal functionality
+        const crmModal = document.getElementById('crmModal');
+        const cloudModal = document.getElementById('cloudModal');
+        const crmModalClose = document.getElementById('crmModalClose');
+        const cloudModalClose = document.getElementById('cloudModalClose');
+
+        function openCRMModal() {
+            crmModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function openCloudModal() {
+            cloudModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeCRMModal() {
+            crmModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        function closeCloudModal() {
+            cloudModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close modal events
+        crmModalClose.addEventListener('click', closeCRMModal);
+        cloudModalClose.addEventListener('click', closeCloudModal);
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (crmModal.classList.contains('active')) {
+                    closeCRMModal();
+                }
+                if (cloudModal.classList.contains('active')) {
+                    closeCloudModal();
+                }
+            }
+        });
+
+        // Prevent modals from closing when clicking inside the modal content
+        crmModal.querySelector('.modal-container').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        cloudModal.querySelector('.modal-container').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Simulate form submission
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<span class="submit-text">SENDING...</span>';
+            submitBtn.disabled = true;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Show success message
+                alert(`Thank you, ${name}! Your message has been sent successfully. I'll get back to you soon at ${email}.`);
+                
+                // Reset form
+                event.target.reset();
+            }, 2000);
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            handleScroll();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'989b9bc0f286b9f0',t:'MTc1OTY1MzU2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
